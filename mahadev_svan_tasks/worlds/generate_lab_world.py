@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generates the Gazebo world of our college robotics lab (from lab_images_reference/).
+Generates the Gazebo world of our college robotics lab (from the photos in docs/lab_photos/).
 
     python3 generate_lab_world.py      ->  worlds/mahadev_lab.world
                                            models/mahadev_lab_media/  (textures + OGRE materials)

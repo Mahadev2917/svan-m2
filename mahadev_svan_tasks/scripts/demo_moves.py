@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """First test: stand -> trot forward -> back -> sideways -> turn -> stop.
-Run after Gazebo + mcp.py are up (see ~/mahadev_svan/README_MAHADEV.md)."""
+Run after Gazebo + mcp.py are up (see README.md)."""
 import rospy
 
 from svan_cmd import Svan

@@ -1,2 +1,4 @@
+# the lab's xMo workspace is unpacked here by setup.sh (xTerra's code, not part of this repo)
+/xMo/
 __pycache__/
 *.pyc
