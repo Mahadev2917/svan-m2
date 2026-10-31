@@ -1,7 +1,10 @@
 <?xml version='1.0'?>
-<!-- SVAN M2 in Mahadev's lab world. Same nodes as svan_bringup/gazebo_sim.launch, different world.
-     roslaunch mahadev_svan_tasks lab_sim.launch                      (robot on the orange mat)
-     roslaunch mahadev_svan_tasks lab_sim.launch keyboard:=false gui:=false
+<!-- All-in-one: Mahadev's lab world + SVAN M2 + pd_controller + mcp.py + keyboard teleop.
+     The robot stands up by itself once spawned; then press 4 (trot) and w/a/s/d in the keyboard window.
+     roslaunch mahadev_svan_tasks lab_sim.launch                      (teleop, robot on the orange mat)
+     roslaunch mahadev_svan_tasks lab_sim.launch keyboard:=false      (for running my scripts)
+     roslaunch mahadev_svan_tasks lab_sim.launch gui:=false           (no Gazebo window, faster)
+     roslaunch mahadev_svan_tasks lab_sim.launch mcp:=false           (start mcp.py yourself, old 3-terminal way)
      roslaunch mahadev_svan_tasks lab_sim.launch x:=0 y:=-2.3 yaw:=0   (aisle between table and PC counter) -->
 <launch>
     <env name="ROS_PACKAGE_PATH" value="$(find svan_m2_description)"/>
@@ -16,6 +19,7 @@
     <arg name="gui" default="true"/>
     <arg name="paused" default="false"/>
     <arg name="keyboard" default="true"/>
+    <arg name="mcp" default="true"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find mahadev_svan_tasks)/worlds/mahadev_lab.world"/>
@@ -24,13 +28,15 @@
         <arg name="verbose" value="true"/>
     </include>
 
-    <group if="$(arg keyboard)">
-        <node name="keyboard_interface" pkg="svan_utils" type="keyboard_interface.py" output="screen"/>
-    </group>
-
     <param name="robot_description" command="cat $(find svan_m2_description)/urdf/svanm2.urdf"/>
     <node name="quadruped_1" pkg="gazebo_ros" type="spawn_model"
           args="-param robot_description -urdf -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -model svan"/>
 
     <node name="controller_node" pkg="svan_bringup" type="pd_controller" output="screen"/>
+
+    <!-- motor command publisher (mcp.py, unchanged) - starts once the robot is spawned -->
+    <node if="$(arg mcp)" name="motor_command_publisher" pkg="mahadev_svan_tasks" type="mcp_node.py"
+          args="$(find svan_control)/src/mcp.py svan" output="screen"/>
+
+    <node if="$(arg keyboard)" name="keyboard_interface" pkg="svan_utils" type="keyboard_interface.py" output="screen"/>
 </launch>
