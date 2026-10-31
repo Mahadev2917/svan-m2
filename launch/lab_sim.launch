@@ -4,6 +4,7 @@
      roslaunch mahadev_svan_tasks lab_sim.launch                      (teleop, robot on the orange mat)
      roslaunch mahadev_svan_tasks lab_sim.launch keyboard:=false      (for running my scripts)
      roslaunch mahadev_svan_tasks lab_sim.launch gui:=false           (no Gazebo window, faster)
+     roslaunch mahadev_svan_tasks lab_sim.launch circle:=true         (demo: walks laps around the table)
      roslaunch mahadev_svan_tasks lab_sim.launch mcp:=false           (start mcp.py yourself, old 3-terminal way)
      roslaunch mahadev_svan_tasks lab_sim.launch x:=0 y:=-2.3 yaw:=0   (aisle between table and PC counter)
      Camera windows that follow the robot: birdseye:=true pov:=true chase:=false (set any to true/false)
@@ -27,6 +28,7 @@
     <arg name="pov" default="true"/>
     <arg name="chase" default="false"/>
     <arg name="windows" default="true"/>
+    <arg name="circle" default="false"/>
     <arg name="views" value="$(eval ','.join(v for v, on in [('birdseye', birdseye), ('pov', pov), ('chase', chase)] if on))"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -45,6 +47,9 @@
     <!-- motor command publisher (mcp.py, unchanged) - starts once the robot is spawned -->
     <node if="$(arg mcp)" name="motor_command_publisher" pkg="mahadev_svan_tasks" type="mcp_node.py"
           args="$(find svan_control)/src/mcp.py svan" output="screen"/>
+
+    <!-- demo: laps around the conference table (keyboard is left on: 1 / Space stops it only for a moment) -->
+    <node if="$(arg circle)" name="circle_table" pkg="mahadev_svan_tasks" type="circle_table.py" output="screen"/>
 
     <node if="$(arg keyboard)" name="keyboard_interface" pkg="svan_utils" type="keyboard_interface.py" output="screen"/>
 

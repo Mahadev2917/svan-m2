@@ -6,6 +6,7 @@ This sends STOP, then lifts the robot upright where it is (or to --spawn) and le
 pd_controller pull the legs back into the stance pose that mcp.py is holding.
     rosrun mahadev_svan_tasks reset_robot.py            # stand up where it fell
     rosrun mahadev_svan_tasks reset_robot.py --spawn    # back to the orange mat
+    rosrun mahadev_svan_tasks reset_robot.py _x:=0 _y:=-2.2 _yaw:=0   # anywhere
 """
 import math
 import sys
@@ -47,6 +48,11 @@ def main():
 
     if "--spawn" in rospy.myargv(sys.argv):
         x, y, yaw = SPAWN
+    elif rospy.has_param("~x"):
+        x, y, yaw = rospy.get_param("~x"), rospy.get_param("~y"), rospy.get_param("~yaw", 0.0)
+        for k in ("~x", "~y", "~yaw"):  # _x:= params stay on the server; don't reuse them next run
+            if rospy.has_param(k):
+                rospy.delete_param(k)
     else:
         p = get_state(model, "world").pose
         x, y, yaw = p.position.x, p.position.y, yaw_of(p.orientation)
