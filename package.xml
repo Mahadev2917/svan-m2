@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mahadev_svan_tasks</name>
+  <version>0.1.0</version>
+  <description>Mahadev's SVAN M2 learning tasks (simulation first, then hardware).</description>
+  <maintainer email="mp0457799@gmail.com">Mahadev</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>gazebo_msgs</exec_depend>
+  <exec_depend>svan_bringup</exec_depend>
+</package>
