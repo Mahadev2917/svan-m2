@@ -5,9 +5,12 @@
      roslaunch mahadev_svan_tasks lab_sim.launch keyboard:=false      (for running my scripts)
      roslaunch mahadev_svan_tasks lab_sim.launch gui:=false           (no Gazebo window, faster)
      roslaunch mahadev_svan_tasks lab_sim.launch mcp:=false           (start mcp.py yourself, old 3-terminal way)
-     roslaunch mahadev_svan_tasks lab_sim.launch x:=0 y:=-2.3 yaw:=0   (aisle between table and PC counter) -->
+     roslaunch mahadev_svan_tasks lab_sim.launch x:=0 y:=-2.3 yaw:=0   (aisle between table and PC counter)
+     Camera windows that follow the robot: birdseye:=true pov:=true chase:=false (set any to true/false)
+     windows:=false keeps the cameras but opens no image windows (use rqt_image_view instead) -->
 <launch>
-    <env name="ROS_PACKAGE_PATH" value="$(find svan_m2_description)"/>
+    <!-- svan_m2_description first (as in gazebo_sim.launch), rest kept so image_transport plugins load -->
+    <env name="ROS_PACKAGE_PATH" value="$(find svan_m2_description):$(env ROS_PACKAGE_PATH)"/>
     <env name="GAZEBO_PLUGIN_PATH" value="$(find svan_gazebo)/plugins/build"/>
     <env name="GAZEBO_MODEL_PATH" value="$(find mahadev_svan_tasks)/models:$(optenv GAZEBO_MODEL_PATH)"/>
 
@@ -20,6 +23,11 @@
     <arg name="paused" default="false"/>
     <arg name="keyboard" default="true"/>
     <arg name="mcp" default="true"/>
+    <arg name="birdseye" default="true"/>
+    <arg name="pov" default="true"/>
+    <arg name="chase" default="false"/>
+    <arg name="windows" default="true"/>
+    <arg name="views" value="$(eval ','.join(v for v, on in [('birdseye', birdseye), ('pov', pov), ('chase', chase)] if on))"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find mahadev_svan_tasks)/worlds/mahadev_lab.world"/>
@@ -39,4 +47,21 @@
           args="$(find svan_control)/src/mcp.py svan" output="screen"/>
 
     <node if="$(arg keyboard)" name="keyboard_interface" pkg="svan_utils" type="keyboard_interface.py" output="screen"/>
+
+    <!-- follow cameras (bird's eye / robot POV / chase) and a window for each -->
+    <node if="$(eval views != '')" name="camera_views" pkg="mahadev_svan_tasks" type="camera_views.py" output="screen">
+        <param name="views" value="$(arg views)"/>
+    </node>
+    <node if="$(eval windows and birdseye)" name="view_birdseye" pkg="image_view" type="image_view">
+        <remap from="image" to="/mahadev/birdseye/image_raw"/>
+        <param name="window_name" value="SVAN - bird's eye"/>
+    </node>
+    <node if="$(eval windows and pov)" name="view_pov" pkg="image_view" type="image_view">
+        <remap from="image" to="/mahadev/pov/image_raw"/>
+        <param name="window_name" value="SVAN - robot POV"/>
+    </node>
+    <node if="$(eval windows and chase)" name="view_chase" pkg="image_view" type="image_view">
+        <remap from="image" to="/mahadev/chase/image_raw"/>
+        <param name="window_name" value="SVAN - chase cam"/>
+    </node>
 </launch>

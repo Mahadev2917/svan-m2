@@ -480,7 +480,7 @@ WORLD_HEAD = """<?xml version='1.0'?>
 
 WORLD_TAIL = """    <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-9.5 -7.5 7.5 0 0.55 0.65</pose>
+        <pose>0 -9 13 0 0.96 1.5708</pose>
       </camera>
     </gui>
   </world>
