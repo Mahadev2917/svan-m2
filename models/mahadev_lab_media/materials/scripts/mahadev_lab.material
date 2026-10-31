@@ -1,0 +1,280 @@
+material Mahadev/blinds_1_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture blinds.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 1.0000 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/floor_tiles_5.4_3.8
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture floor_tiles.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.1846 0.2667
+      }
+    }
+  }
+}
+
+material Mahadev/lattice_2_2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture lattice.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.5000 0.5000
+      }
+    }
+  }
+}
+
+material Mahadev/lattice_2_3
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture lattice.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.5000 0.3333
+      }
+    }
+  }
+}
+
+material Mahadev/lattice_6_2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture lattice.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.1667 0.5000
+      }
+    }
+  }
+}
+
+material Mahadev/wall_slats_15_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wall_slats.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.0667 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wall_slats_5.7_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wall_slats.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.1765 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wall_slats_5_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wall_slats.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.2000 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_1_2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 1.0000 0.5000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_2_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.5000 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_3.4_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.2941 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_4_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.2500 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_6.5_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.1538 1.0000
+      }
+    }
+  }
+}
+
+material Mahadev/wood_light_8.1_1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1
+      diffuse 1 1 1 1
+      specular 0.1 0.1 0.1 1 5
+      texture_unit
+      {
+        texture wood_light.png
+        filtering anisotropic
+        max_anisotropy 8
+        scale 0.1235 1.0000
+      }
+    }
+  }
+}
+

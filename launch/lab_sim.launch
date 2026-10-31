@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<!-- SVAN M2 in Mahadev's lab world. Same nodes as svan_bringup/gazebo_sim.launch, different world.
+     roslaunch mahadev_svan_tasks lab_sim.launch                      (robot on the orange mat)
+     roslaunch mahadev_svan_tasks lab_sim.launch keyboard:=false gui:=false
+     roslaunch mahadev_svan_tasks lab_sim.launch x:=0 y:=-2.3 yaw:=0   (aisle between table and PC counter) -->
+<launch>
+    <env name="ROS_PACKAGE_PATH" value="$(find svan_m2_description)"/>
+    <env name="GAZEBO_PLUGIN_PATH" value="$(find svan_gazebo)/plugins/build"/>
+    <env name="GAZEBO_MODEL_PATH" value="$(find mahadev_svan_tasks)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
+    <!-- default spawn: on the orange mat, facing along it (+y) -->
+    <arg name="x" default="-5.45"/>
+    <arg name="y" default="-2.4"/>
+    <arg name="z" default="0.45"/>
+    <arg name="yaw" default="1.5708"/>
+    <arg name="gui" default="true"/>
+    <arg name="paused" default="false"/>
+    <arg name="keyboard" default="true"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find mahadev_svan_tasks)/worlds/mahadev_lab.world"/>
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="verbose" value="true"/>
+    </include>
+
+    <group if="$(arg keyboard)">
+        <node name="keyboard_interface" pkg="svan_utils" type="keyboard_interface.py" output="screen"/>
+    </group>
+
+    <param name="robot_description" command="cat $(find svan_m2_description)/urdf/svanm2.urdf"/>
+    <node name="quadruped_1" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description -urdf -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -model svan"/>
+
+    <node name="controller_node" pkg="svan_bringup" type="pd_controller" output="screen"/>
+</launch>
